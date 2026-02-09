@@ -1,19 +1,37 @@
 "use client";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { login } from "../../../services/authService";
 import { setUser } from "../../lib/slices/authSlice";
 import toast from "react-hot-toast";
-
+import { checkAuth } from "../../../services/authService";
 const LoginForm = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [checking, setChecking] = useState(true);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+  const verifyExistingSession = async () => {
+    try {
+      const result = await checkAuth();
+      if (result.success && (result.data?.name || result.user?.name)) {
+        dispatch(setUser({ name: result.data?.name || result.user?.name }));
+        window.location.href = "/";
+        return;
+      }
+    } catch {
+      // No valid session, stay on login
+    } finally {
+      setChecking(false);
+    }
+  };
+  verifyExistingSession();
+}, [dispatch]);
 
   const validateForm = () => {
     const newErrors = {};
@@ -68,7 +86,16 @@ const LoginForm = () => {
     }
   };
 
-  return (
+    if (checking) {
+    return (
+      <div className="w-full max-w-sm flex items-center justify-center py-20">
+        <div className="w-10 h-10 border-4 border-gray-700 border-t-blue-500 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+
+    return (
     <div className="w-full max-w-sm">
       <h2 className="text-4xl font-bold text-white !mb-8">Welcome Back</h2>
       {/* <p className="text-white !my-5">Continue your adventure</p> */}
@@ -169,5 +196,5 @@ const LoginForm = () => {
       </div>
     </div>
   );
-};
+}
 export default LoginForm;

@@ -33,20 +33,20 @@ function Dashboard() {
 	const dispatch = useDispatch();
 	const { isAuthenticated, name } = useSelector((state) => state.auth);
 	// Check authentication on mount
-	useEffect(() => {
-		const checkAuthentication = async () => {
-			try {
-				const response = await checkAuth();
-				if (response.success) {
-					dispatch(setUser({ name: response.user.name }));
-				}
-			} catch (error) {
-				console.log("Not authenticated");
-			}
-		};
+	// useEffect(() => {
+	// 	const checkAuthentication = async () => {
+	// 		try {
+	// 			const response = await checkAuth();
+	// 			if (response.success) {
+	// 				dispatch(setUser({ name: response.user.name }));
+	// 			}
+	// 		} catch (error) {
+	// 			console.log("Not authenticated");
+	// 		}
+	// 	};
 
-		checkAuthentication();
-	}, [dispatch]);
+	// 	checkAuthentication();
+	// }, [dispatch]);
 
   const handleEvaluate = useCallback((riskData) => {
     const finalData = {
