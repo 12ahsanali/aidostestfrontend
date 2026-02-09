@@ -47,7 +47,7 @@ export const checkAuth = async () => {
         const res = await api.get('/auth/check');
         return res.data;
     } catch (error) {
-        throw error.response?.data || error;
+        throw error.response?.data ||error;
     }
 }
 
