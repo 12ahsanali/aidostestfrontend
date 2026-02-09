@@ -127,7 +127,7 @@ export default function AirportAutocomplete({
             ))
           ) : value.length >= 2 ? (
             <div className="px-3 py-3 text-[var(--text-secondary)] text-sm">
-              No airports found for "{value}"
+        No airports found for {value};
             </div>
           ) : (
             <div className="px-3 py-3 text-[var(--text-secondary)] text-sm">

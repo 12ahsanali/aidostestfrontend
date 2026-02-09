@@ -8,7 +8,7 @@ export default function MapArea({destination,departure, routeData }) {
     const mapRef = useRef(null);
     const mapInstanceRef = useRef(null);
     const layersRef = useRef([]);
-    const [metarByStation, setMetarByStation] = useState({});
+    // const [metarByStation, setMetarByStation] = useState({});
 
     // Get real weather data from API response if available
     const getWeatherFromApi = (airportCode) => {
@@ -102,7 +102,7 @@ export default function MapArea({destination,departure, routeData }) {
             const label = isStart ? 'Departure' : isEnd ? 'Destination' : 'Stop';
 
             const apiWeather = point.weather;
-            const metar = metarByStation?.[point.code];
+            // const metar = metarByStation?.[point.code];
 
             let popupContent;
             if (apiWeather) {
@@ -144,7 +144,7 @@ export default function MapArea({destination,departure, routeData }) {
         layersRef.current.push(polyline);
 
         mapInstanceRef.current.fitBounds(polyline.getBounds(), { padding: [50, 50] });
-    }, [departure, destination, routeData]);
+    }, [departure, destination, routeData,getWeatherFromApi]);
 
     return (
     <div 
