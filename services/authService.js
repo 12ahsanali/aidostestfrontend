@@ -26,7 +26,7 @@ export default api;
 
 export const signup = async (formData) => {
     try {
-        const res = await api.post('/auth/signup', formData);
+        const res = await api.post('api/auth/signup', formData);
         return res.data;
     } catch (error) {
         throw error.response?.data || error;
@@ -35,7 +35,7 @@ export const signup = async (formData) => {
 
 export const login = async (formData) => {
     try {
-        const res = await api.post('/auth/login', formData);
+        const res = await api.post('api/auth/login', formData);
         return res.data;
     } catch (error) {
         throw error?.response?.data || error;
@@ -44,7 +44,7 @@ export const login = async (formData) => {
 
 export const checkAuth = async () => {
     try {
-        const res = await api.get('/auth/check');
+        const res = await api.get('api/auth/check');
         return res.data;
     } catch (error) {
         throw error.response?.data || error;
